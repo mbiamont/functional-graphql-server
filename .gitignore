@@ -1,0 +1,15 @@
+# IDE
+.vscode
+.idea
+
+# Node
+/node_modules
+/dist
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Config
+conf/env.json
+.env
