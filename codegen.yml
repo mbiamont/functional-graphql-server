@@ -1,0 +1,14 @@
+overwrite: true
+schema: "src/schema.graphql"
+generates:
+  src/platform/graphql/@types.ts:
+    plugins:
+      - typescript
+  ./schema/schema.json:
+    plugins:
+      - 'introspection'
+    config:
+      constEnums: true
+      skipTypename: true
+      namingConvention:
+        enumValues: upper-case
