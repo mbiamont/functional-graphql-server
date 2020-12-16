@@ -1,28 +1,28 @@
 import {IAddBookUseCase} from '../domain/usecase/iAddBookUseCase'
 import {AddBookUseCase} from '../domain/usecase/addBookUseCase'
-import {IBookService} from '../domain/service/iBookservice'
 import {FetchBooksUseCase} from '../domain/usecase/fetchBooksUseCase'
 import {IFetchBooksUseCase} from '../domain/usecase/iFetchBooksUseCase'
 import {IFetchAuthorsUseCase} from '../domain/usecase/iFetchAuthorsUseCase'
 import {FetchAuthorsUseCase} from '../domain/usecase/fetchAuthorsUseCase'
 import {IFetchAuthorBooksUseCase} from '../domain/usecase/iFetchAuthorBooksUseCase'
 import {FetchAuthorBooksUseCase} from '../domain/usecase/fetchAuthorBooksUseCase'
+import {GetAllBooks, StoreBook} from '../domain/service/@types'
 
 export class UseCaseFactory {
 
-    provideFetchBooksUseCase(bookService: IBookService): IFetchBooksUseCase {
-        return new FetchBooksUseCase(bookService)
+    provideFetchBooksUseCase(getAllBooks: GetAllBooks): IFetchBooksUseCase {
+        return new FetchBooksUseCase(getAllBooks)
     }
     
-    provideFetchAuthorsUseCase(bookService: IBookService): IFetchAuthorsUseCase {
-        return new FetchAuthorsUseCase(bookService)
+    provideFetchAuthorsUseCase(getAllBooks: GetAllBooks): IFetchAuthorsUseCase {
+        return new FetchAuthorsUseCase(getAllBooks)
     }
 
-    provideAddBookUseCase(bookService: IBookService): IAddBookUseCase {
-        return new AddBookUseCase(bookService)
+    provideAddBookUseCase(storeBook: StoreBook): IAddBookUseCase {
+        return new AddBookUseCase(storeBook)
     }
     
-    provideFetchAuthorBooksUseCase(bookService: IBookService): IFetchAuthorBooksUseCase {
-        return new FetchAuthorBooksUseCase(bookService)
+    provideFetchAuthorBooksUseCase(getAllBooks: GetAllBooks): IFetchAuthorBooksUseCase {
+        return new FetchAuthorBooksUseCase(getAllBooks)
     }
 }

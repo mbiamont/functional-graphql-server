@@ -1,14 +1,14 @@
 import {IAddBookUseCase} from './iAddBookUseCase'
 import {Book} from '../entity/book'
-import {IBookService} from '../service/iBookservice'
+import {StoreBook} from '../service/@types'
 
 export class AddBookUseCase implements IAddBookUseCase {
 
-    constructor(private readonly bookService: IBookService) {
+    constructor(private readonly storeBook: StoreBook) {
     }
 
     async addBook(book: Book, output: (book: Book) => void): Promise<void> {
-        await this.bookService.storeBook(book)
+        await this.storeBook(book)
         output(book)
     }
 }

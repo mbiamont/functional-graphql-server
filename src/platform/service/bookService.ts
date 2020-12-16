@@ -1,17 +1,8 @@
 import {Book} from '../../domain/entity/book'
-import {IBookService} from '../../domain/service/iBookservice'
+import {GetAllBooks, StoreBook} from '../../domain/service/@types'
 
-export class BookService implements IBookService {
+export const createGetAllBooks = (books: Book[]): GetAllBooks => async (): Promise<Book[]> => books
 
-    constructor(private books: Book[] = []) {
-    }
-
-    async getAllBooks(): Promise<Book[]> {
-        return this.books
-    }
-
-    async storeBook(book: Book): Promise<void> {
-        this.books.push(book)
-    }
-
+export const createStoreBook = (books: Book[]): StoreBook => async (book: Book): Promise<void> => {
+    books.push(book)
 }

@@ -11,10 +11,10 @@ export class AppContainer {
 
     generateResolvers(): IResolvers {
         return new GraphQlResolvers(
-            this.controllerFactory.provideFetchBooksController(this.useCaseFactory.provideFetchBooksUseCase(this.serviceFactory.provideBookService())),
-            this.controllerFactory.provideFetchAuthorsController(this.useCaseFactory.provideFetchAuthorsUseCase(this.serviceFactory.provideBookService())),
-            this.controllerFactory.provideAddBookController(this.useCaseFactory.provideAddBookUseCase(this.serviceFactory.provideBookService())),
-            this.controllerFactory.provideFetchAuthorBookController(this.useCaseFactory.provideFetchAuthorBooksUseCase(this.serviceFactory.provideBookService()))
+            this.controllerFactory.provideFetchBooksController(this.useCaseFactory.provideFetchBooksUseCase(this.serviceFactory.provideGetAllBooks())),
+            this.controllerFactory.provideFetchAuthorsController(this.useCaseFactory.provideFetchAuthorsUseCase(this.serviceFactory.provideGetAllBooks())),
+            this.controllerFactory.provideAddBookController(this.useCaseFactory.provideAddBookUseCase(this.serviceFactory.provideStoreBook())),
+            this.controllerFactory.provideFetchAuthorBookController(this.useCaseFactory.provideFetchAuthorBooksUseCase(this.serviceFactory.provideGetAllBooks()))
         ).buildResolvers()
     }
 }

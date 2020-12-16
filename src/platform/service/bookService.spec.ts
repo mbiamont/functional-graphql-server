@@ -1,33 +1,35 @@
-import {BookService} from './bookService'
-import {Book} from '../../domain/entity/book'
+import {createGetAllBooks, createStoreBook} from './bookService'
 import {bookFactory} from '../../__factories__/book'
 
-describe('BookService', () => {
+
+describe('GetAllBooks', () => {
+
     const book1 = bookFactory.build()
     const book2 = bookFactory.build()
+    const books = [book1, book2]
 
-    describe('getAllBooks', () => {
-        const books = [book1, book2]
+    const getAllBooks = createGetAllBooks(books)
 
-        const service = new BookService(books)
+    it('should return books', async () => {
+        const actual = await getAllBooks()
 
-        it('should return books', async () => {
-            const actual = await service.getAllBooks()
-
-            expect(actual).toEqual(books)
-        })
+        expect(actual).toEqual(books)
     })
+})
 
-    describe('storeBook', () => {
-        const books: Array<Book> = [book1]
-        const expected = [book1, book2]
+describe('StoreBook', () => {
 
-        const service = new BookService(books)
+    const book1 = bookFactory.build()
+    const book2 = bookFactory.build()
+    const books = [book1]
 
-        it('should push book into the array', async () => {
-            await service.storeBook(book2)
+    const expected = [book1, book2]
 
-            expect(books).toEqual(expected)
-        })
+    const storeBook = createStoreBook(books)
+
+    it('should push book into the array', async () => {
+        await storeBook(book2)
+
+        expect(books).toEqual(expected)
     })
 })

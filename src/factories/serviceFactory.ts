@@ -1,14 +1,24 @@
-import {BookService} from '../platform/service/bookService'
-import {IBookService} from '../domain/service/iBookservice'
+import {createGetAllBooks, createStoreBook} from '../platform/service/bookService'
+import {GetAllBooks, StoreBook} from '../domain/service/@types'
+import {Book} from '../domain/entity/book'
 
 export class ServiceFactory {
 
-    private bookService?: BookService
+    private store?: Book[]
 
-    provideBookService(): IBookService {
-        if (this.bookService == null) {
-            this.bookService = new BookService()
+    private provideBookStore(): Book[] {
+        if (this.store == null) {
+            this.store = []
         }
-        return this.bookService
+
+        return this.store
+    }
+
+    provideGetAllBooks(): GetAllBooks {
+        return createGetAllBooks(this.provideBookStore())
+    }
+
+    provideStoreBook(): StoreBook {
+        return createStoreBook(this.provideBookStore())
     }
 }

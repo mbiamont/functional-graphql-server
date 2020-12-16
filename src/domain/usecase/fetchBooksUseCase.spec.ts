@@ -1,7 +1,7 @@
 import {authorFactory} from '../../__factories__/author'
 import {bookFactory} from '../../__factories__/book'
-import {IBookService} from '../service/iBookservice'
 import {FetchBooksUseCase} from './fetchBooksUseCase'
+import {GetAllBooks} from '../service/@types'
 
 describe('FetchBooksUseCase', () => {
     const author1 = authorFactory.build()
@@ -17,12 +17,9 @@ describe('FetchBooksUseCase', () => {
         author: author1
     })
 
-    const mockBookService: IBookService = {
-        getAllBooks: jest.fn().mockImplementation(() => Promise.resolve([book1, book2, book3])),
-        storeBook: jest.fn()
-    }
+    const mockGetAllBooks: GetAllBooks = jest.fn().mockImplementation(() => Promise.resolve([book1, book2, book3]))
 
-    const useCase = new FetchBooksUseCase(mockBookService)
+    const useCase = new FetchBooksUseCase(mockGetAllBooks)
 
     describe('fetchBooks', () => {
         const expected = [book1, book2, book3]
@@ -32,6 +29,7 @@ describe('FetchBooksUseCase', () => {
         it('should get books from service and call output with all books', async () => {
             await useCase.fetchBooks(mockOutput)
 
+            expect(mockGetAllBooks).toBeCalled()
             expect(mockOutput).toBeCalledWith(expected)
         })
     })
