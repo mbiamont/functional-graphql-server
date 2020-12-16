@@ -1,13 +1,13 @@
 import {IFetchAuthorBooksController} from '../../platform/controller/iFetchAuthorBooksController'
-import {IFetchAuthorBooksUseCase} from '../../domain/usecase/iFetchAuthorBooksUseCase'
 import {Book} from '../../domain/entity/book'
+import {FetchAuthorBooksUseCase} from '../../domain/usecase/@types'
 
 export class FetchAuthorBooksController implements IFetchAuthorBooksController {
     
-    constructor(private readonly fetchAuthorBooksUseCase: IFetchAuthorBooksUseCase) {
+    constructor(private readonly performFetchAuthorBooks: FetchAuthorBooksUseCase) {
     }
 
     async onFetchAuthorBooks(authorName: string): Promise<Book[]> {
-        return new Promise((resolve) => this.fetchAuthorBooksUseCase.fetchAuthorBooks(authorName, (books: Book[]) => resolve(books)))
+        return new Promise((resolve) => this.performFetchAuthorBooks(authorName, (books: Book[]) => resolve(books)))
     }
 }

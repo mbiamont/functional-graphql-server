@@ -1,4 +1,4 @@
-import {FetchAuthorBooksUseCase} from './fetchAuthorBooksUseCase'
+import {createFetchAuthorBooksUseCase} from './fetchAuthorBooksUseCase'
 import {bookFactory} from '../../__factories__/book'
 import {authorFactory} from '../../__factories__/author'
 import {GetAllBooks} from '../service/@types'
@@ -19,7 +19,7 @@ describe('FetchAuthorBooksUseCase', () => {
 
     const mockGetAllBooks: GetAllBooks = jest.fn().mockImplementation(() => Promise.resolve([book1, book2, book3]))
 
-    const useCase = new FetchAuthorBooksUseCase(mockGetAllBooks)
+    const performFetchAuthorBooks = createFetchAuthorBooksUseCase(mockGetAllBooks)
 
     describe('fetchAuthorBooks', () => {
         const expected = [book1, book3]
@@ -27,8 +27,8 @@ describe('FetchAuthorBooksUseCase', () => {
         const mockOutput = jest.fn()
 
         it('should get books from service and call output with only books with the right author', async () => {
-            await useCase.fetchAuthorBooks(author1.name, mockOutput)
-            
+            await performFetchAuthorBooks(author1.name, mockOutput)
+
             expect(mockGetAllBooks).toBeCalled()
             expect(mockOutput).toBeCalledWith(expected)
         })

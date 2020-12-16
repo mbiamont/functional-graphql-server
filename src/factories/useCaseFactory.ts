@@ -1,28 +1,30 @@
-import {IAddBookUseCase} from '../domain/usecase/iAddBookUseCase'
-import {AddBookUseCase} from '../domain/usecase/addBookUseCase'
-import {FetchBooksUseCase} from '../domain/usecase/fetchBooksUseCase'
-import {IFetchBooksUseCase} from '../domain/usecase/iFetchBooksUseCase'
-import {IFetchAuthorsUseCase} from '../domain/usecase/iFetchAuthorsUseCase'
-import {FetchAuthorsUseCase} from '../domain/usecase/fetchAuthorsUseCase'
-import {IFetchAuthorBooksUseCase} from '../domain/usecase/iFetchAuthorBooksUseCase'
-import {FetchAuthorBooksUseCase} from '../domain/usecase/fetchAuthorBooksUseCase'
 import {GetAllBooks, StoreBook} from '../domain/service/@types'
+import {
+    AddBookUseCase,
+    FetchAuthorBooksUseCase,
+    FetchAuthorsUseCase,
+    FetchBooksUseCase
+} from '../domain/usecase/@types'
+import {createFetchBooksUseCase} from '../domain/usecase/fetchBooksUseCase'
+import {createFetchAuthorsUseCase} from '../domain/usecase/fetchAuthorsUseCase'
+import {createAddBookUseCase} from '../domain/usecase/addBookUseCase'
+import {createFetchAuthorBooksUseCase} from '../domain/usecase/fetchAuthorBooksUseCase'
 
 export class UseCaseFactory {
 
-    provideFetchBooksUseCase(getAllBooks: GetAllBooks): IFetchBooksUseCase {
-        return new FetchBooksUseCase(getAllBooks)
-    }
-    
-    provideFetchAuthorsUseCase(getAllBooks: GetAllBooks): IFetchAuthorsUseCase {
-        return new FetchAuthorsUseCase(getAllBooks)
+    provideFetchBooksUseCase(getAllBooks: GetAllBooks): FetchBooksUseCase {
+        return createFetchBooksUseCase(getAllBooks)
     }
 
-    provideAddBookUseCase(storeBook: StoreBook): IAddBookUseCase {
-        return new AddBookUseCase(storeBook)
+    provideFetchAuthorsUseCase(getAllBooks: GetAllBooks): FetchAuthorsUseCase {
+        return createFetchAuthorsUseCase(getAllBooks)
     }
-    
-    provideFetchAuthorBooksUseCase(getAllBooks: GetAllBooks): IFetchAuthorBooksUseCase {
-        return new FetchAuthorBooksUseCase(getAllBooks)
+
+    provideAddBookUseCase(storeBook: StoreBook): AddBookUseCase {
+        return createAddBookUseCase(storeBook)
+    }
+
+    provideFetchAuthorBooksUseCase(getAllBooks: GetAllBooks): FetchAuthorBooksUseCase {
+        return createFetchAuthorBooksUseCase(getAllBooks)
     }
 }

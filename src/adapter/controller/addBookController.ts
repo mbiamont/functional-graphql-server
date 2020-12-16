@@ -1,10 +1,10 @@
 import {IAddBookController} from '../../platform/controller/iAddBookController'
-import {IAddBookUseCase} from '../../domain/usecase/iAddBookUseCase'
 import {Book} from '../../domain/entity/book'
+import {AddBookUseCase} from '../../domain/usecase/@types'
 
 export class AddBookController implements IAddBookController {
 
-    constructor(private readonly addBookUseCase: IAddBookUseCase) {
+    constructor(private readonly performAddBook: AddBookUseCase) {
     }
 
     async onAddBookCalled(title: string, author: string): Promise<Book> {
@@ -15,6 +15,6 @@ export class AddBookController implements IAddBookController {
             }
         }
 
-        return new Promise((resolve) => this.addBookUseCase.addBook(book, (storedBook) => resolve(storedBook)))
+        return new Promise((resolve) => this.performAddBook(book, (storedBook) => resolve(storedBook)))
     }
 }

@@ -1,31 +1,33 @@
 import {IAddBookController} from '../platform/controller/iAddBookController'
 import {AddBookController} from '../adapter/controller/addBookController'
-import {IAddBookUseCase} from '../domain/usecase/iAddBookUseCase'
-import {IFetchBooksUseCase} from '../domain/usecase/iFetchBooksUseCase'
 import {IFetchBooksController} from '../platform/controller/iFetchBooksController'
 import {FetchBooksController} from '../adapter/controller/fetchBooksController'
 import {IFetchAuthorsController} from '../platform/controller/iFetchAuthorsController'
-import {IFetchAuthorsUseCase} from '../domain/usecase/iFetchAuthorsUseCase'
 import {FetchAuthorsController} from '../adapter/controller/fetchAuthorsController'
-import {IFetchAuthorBooksUseCase} from '../domain/usecase/iFetchAuthorBooksUseCase'
 import {FetchAuthorBooksController} from '../adapter/controller/fetchAuthorBooksController'
 import {IFetchAuthorBooksController} from '../platform/controller/iFetchAuthorBooksController'
+import {
+    AddBookUseCase,
+    FetchAuthorBooksUseCase,
+    FetchAuthorsUseCase,
+    FetchBooksUseCase
+} from '../domain/usecase/@types'
 
 export class ControllerFactory {
 
-    provideFetchBooksController(fetchBooksUseCase: IFetchBooksUseCase): IFetchBooksController {
+    provideFetchBooksController(fetchBooksUseCase: FetchBooksUseCase): IFetchBooksController {
         return new FetchBooksController(fetchBooksUseCase)
     }
 
-    provideFetchAuthorsController(fetchAuthorsUseCase: IFetchAuthorsUseCase): IFetchAuthorsController {
+    provideFetchAuthorsController(fetchAuthorsUseCase: FetchAuthorsUseCase): IFetchAuthorsController {
         return new FetchAuthorsController(fetchAuthorsUseCase)
     }
 
-    provideAddBookController(addBookUseCase: IAddBookUseCase): IAddBookController {
+    provideAddBookController(addBookUseCase: AddBookUseCase): IAddBookController {
         return new AddBookController(addBookUseCase)
     }
 
-    provideFetchAuthorBookController(fetchAuthorBooksUseCase: IFetchAuthorBooksUseCase): IFetchAuthorBooksController {
+    provideFetchAuthorBookController(fetchAuthorBooksUseCase: FetchAuthorBooksUseCase): IFetchAuthorBooksController {
         return new FetchAuthorBooksController(fetchAuthorBooksUseCase)
     }
 }

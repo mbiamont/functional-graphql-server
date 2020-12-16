@@ -1,14 +1,10 @@
-import {IFetchBooksUseCase} from './iFetchBooksUseCase'
 import {Book} from '../entity/book'
 import {GetAllBooks} from '../service/@types'
+import { FetchBooksUseCase} from './@types'
 
-export class FetchBooksUseCase implements IFetchBooksUseCase {
-
-    constructor(private readonly getAllBooks: GetAllBooks) {
-    }
-
-    async fetchBooks(output: (books: Book[]) => void): Promise<void> {
-        const books = await this.getAllBooks()
-        output(books)
-    }
+export const createFetchBooksUseCase = (
+    getAllBooks: GetAllBooks
+): FetchBooksUseCase => async (output: (books: Book[]) => void): Promise<void> => {
+    const books = await getAllBooks()
+    output(books)
 }
