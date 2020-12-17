@@ -7,30 +7,23 @@ import {
     FetchBooksController
 } from '../controller/@types'
 
-export class GraphQlResolvers {
+export const createAppResolvers = (onFetchBooksCalled: FetchBooksController,
+    onFetchAuthorsCalled: FetchAuthorsController,
+    onAddBookCalled: AddBookController,
+    onFetchAuthorBooksCalled: FetchAuthorBooksController): IResolvers => {
+    return {
+        Query: {
+            books: async (): Promise<Book[]> => await onFetchBooksCalled(),
 
-    constructor(
-        private readonly onFetchBooksCalled: FetchBooksController,
-        private readonly onFetchAuthorsCalled: FetchAuthorsController,
-        private readonly onAddBookCalled: AddBookController,
-        private readonly onFetchAuthorBooksCalled: FetchAuthorBooksController) {
-    }
+            authors: async (): Promise<Author[]> => await onFetchAuthorsCalled()
+        },
 
-    buildResolvers(): IResolvers {
-        return {
-            Query: {
-                books: async (): Promise<Book[]> => await this.onFetchBooksCalled(),
+        Mutation: {
+            addBook: async (parent: unknown, args: MutationAddBookArgs): Promise<Book> => await onAddBookCalled(args.title, args.author)
+        },
 
-                authors: async (): Promise<Author[]> => await this.onFetchAuthorsCalled()
-            },
-
-            Mutation: {
-                addBook: async (parent: unknown, args: MutationAddBookArgs): Promise<Book> => await this.onAddBookCalled(args.title, args.author)
-            },
-
-            Author: {
-                books: async (parent: Author): Promise<Book[]> => await this.onFetchAuthorBooksCalled(parent.name)
-            }
+        Author: {
+            books: async (parent: Author): Promise<Book[]> => await onFetchAuthorBooksCalled(parent.name)
         }
     }
 }

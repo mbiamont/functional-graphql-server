@@ -1,20 +1,16 @@
-import {GraphQlResolvers} from '../platform/graphql/graphQlResolvers'
-import {ServiceFactory} from './serviceFactory'
-import {UseCaseFactory} from './useCaseFactory'
-import {ControllerFactory} from './controllerFactory'
 import {IResolvers} from 'graphql-tools/dist/Interfaces'
+import {useCaseFactory} from './useCaseFactory'
+import {Book} from '../domain/entity/book'
+import {serviceFactory} from './serviceFactory'
+import {controllerFactory} from './controllerFactory'
+import {createAppResolvers} from '../platform/graphql/graphQlResolvers'
 
-export class AppContainer {
-    private serviceFactory = new ServiceFactory()
-    private useCaseFactory = new UseCaseFactory()
-    private controllerFactory = new ControllerFactory()
+export const appContainer = {
 
-    generateResolvers(): IResolvers {
-        return new GraphQlResolvers(
-            this.controllerFactory.provideFetchBooksController(this.useCaseFactory.provideFetchBooksUseCase(this.serviceFactory.provideGetAllBooks())),
-            this.controllerFactory.provideFetchAuthorsController(this.useCaseFactory.provideFetchAuthorsUseCase(this.serviceFactory.provideGetAllBooks())),
-            this.controllerFactory.provideAddBookController(this.useCaseFactory.provideAddBookUseCase(this.serviceFactory.provideStoreBook())),
-            this.controllerFactory.provideFetchAuthorBookController(this.useCaseFactory.provideFetchAuthorBooksUseCase(this.serviceFactory.provideGetAllBooks()))
-        ).buildResolvers()
-    }
+    generateResolvers: (store: Book[] = []): IResolvers => createAppResolvers(
+        controllerFactory.provideFetchBooksController(useCaseFactory.provideFetchBooksUseCase(serviceFactory.provideGetAllBooks(store))),
+        controllerFactory.provideFetchAuthorsController(useCaseFactory.provideFetchAuthorsUseCase(serviceFactory.provideGetAllBooks(store))),
+        controllerFactory.provideAddBookController(useCaseFactory.provideAddBookUseCase(serviceFactory.provideStoreBook(store))),
+        controllerFactory.provideFetchAuthorBookController(useCaseFactory.provideFetchAuthorBooksUseCase(serviceFactory.provideGetAllBooks(store)))
+    )
 }

@@ -2,23 +2,9 @@ import {createGetAllBooks, createStoreBook} from '../platform/service/bookServic
 import {GetAllBooks, StoreBook} from '../domain/service/@types'
 import {Book} from '../domain/entity/book'
 
-export class ServiceFactory {
+export const serviceFactory = {
 
-    private store?: Book[]
+    provideGetAllBooks: (store: Book[]): GetAllBooks => createGetAllBooks(store),
 
-    private provideBookStore(): Book[] {
-        if (this.store == null) {
-            this.store = []
-        }
-
-        return this.store
-    }
-
-    provideGetAllBooks(): GetAllBooks {
-        return createGetAllBooks(this.provideBookStore())
-    }
-
-    provideStoreBook(): StoreBook {
-        return createStoreBook(this.provideBookStore())
-    }
+    provideStoreBook: (store: Book[]): StoreBook => createStoreBook(store)
 }

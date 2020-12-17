@@ -10,21 +10,13 @@ import {createFetchAuthorsUseCase} from '../domain/usecase/fetchAuthorsUseCase'
 import {createAddBookUseCase} from '../domain/usecase/addBookUseCase'
 import {createFetchAuthorBooksUseCase} from '../domain/usecase/fetchAuthorBooksUseCase'
 
-export class UseCaseFactory {
+export const useCaseFactory = {
 
-    provideFetchBooksUseCase(getAllBooks: GetAllBooks): FetchBooksUseCase {
-        return createFetchBooksUseCase(getAllBooks)
-    }
+    provideFetchBooksUseCase: (getAllBooks: GetAllBooks): FetchBooksUseCase => createFetchBooksUseCase(getAllBooks),
 
-    provideFetchAuthorsUseCase(getAllBooks: GetAllBooks): FetchAuthorsUseCase {
-        return createFetchAuthorsUseCase(getAllBooks)
-    }
+    provideFetchAuthorsUseCase: (getAllBooks: GetAllBooks): FetchAuthorsUseCase =>createFetchAuthorsUseCase(getAllBooks),
 
-    provideAddBookUseCase(storeBook: StoreBook): AddBookUseCase {
-        return createAddBookUseCase(storeBook)
-    }
+    provideAddBookUseCase: (storeBook: StoreBook): AddBookUseCase => createAddBookUseCase(storeBook),
 
-    provideFetchAuthorBooksUseCase(getAllBooks: GetAllBooks): FetchAuthorBooksUseCase {
-        return createFetchAuthorBooksUseCase(getAllBooks)
-    }
+    provideFetchAuthorBooksUseCase: (getAllBooks: GetAllBooks): FetchAuthorBooksUseCase => createFetchAuthorBooksUseCase(getAllBooks)
 }

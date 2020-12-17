@@ -8,9 +8,8 @@ import {makeExecutableSchema} from 'graphql-tools'
 import {IResolvers} from 'graphql-tools'
 import {createServer} from 'http'
 import compression from 'compression'
-import {AppContainer} from './factories/appContainer'
+import {appContainer} from './factories/appContainer'
 
-const appContainer = new AppContainer()
 const resolvers: IResolvers = appContainer.generateResolvers()
 
 const schema = makeExecutableSchema({

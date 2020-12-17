@@ -14,21 +14,12 @@ import {
     FetchBooksController, AddBookController
 } from '../platform/controller/@types'
 
-export class ControllerFactory {
+export const controllerFactory = {
+    provideFetchBooksController: (fetchBooksUseCase: FetchBooksUseCase): FetchBooksController => createFetchBooksController(fetchBooksUseCase),
 
-    provideFetchBooksController(fetchBooksUseCase: FetchBooksUseCase): FetchBooksController {
-        return createFetchBooksController(fetchBooksUseCase)
-    }
+    provideFetchAuthorsController: (fetchAuthorsUseCase: FetchAuthorsUseCase): FetchAuthorsController => createFetchAuthorsController(fetchAuthorsUseCase),
 
-    provideFetchAuthorsController(fetchAuthorsUseCase: FetchAuthorsUseCase): FetchAuthorsController {
-        return createFetchAuthorsController(fetchAuthorsUseCase)
-    }
+    provideAddBookController: (addBookUseCase: AddBookUseCase): AddBookController => createAddBookController(addBookUseCase),
 
-    provideAddBookController(addBookUseCase: AddBookUseCase): AddBookController {
-        return createAddBookController(addBookUseCase)
-    }
-
-    provideFetchAuthorBookController(fetchAuthorBooksUseCase: FetchAuthorBooksUseCase): FetchAuthorBooksController {
-        return createFetchAuthorBooksController(fetchAuthorBooksUseCase)
-    }
+    provideFetchAuthorBookController: (fetchAuthorBooksUseCase: FetchAuthorBooksUseCase): FetchAuthorBooksController => createFetchAuthorBooksController(fetchAuthorBooksUseCase)
 }
